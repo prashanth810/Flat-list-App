@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import { fontsize, iconsizes, spacing } from '../../constants/Dimensions'
 import { Colors } from '../../constants/Colors'
@@ -7,25 +7,34 @@ import Search from 'react-native-vector-icons/AntDesign'
 import Grid from 'react-native-vector-icons/MaterialIcons'
 import Categorypage from '../../constants/Categorypage'
 import Productcard from '../../components/product data/Productcard'
+import { Smartwatches } from '../../data/Smartdata'
 
 const Landinscreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}> Find your best watch Now. </Text>
-
-            <View style={styles.maininputwrap}>
-                <View style={styles.inputwrap}>
-                    <Search name='search1' style={styles.searchicon} />
-                    <TextInput keyboardType='text' style={styles.textinput} placeholder='Search Products ...' placeholderTextColor={Colors.placeholder} />
-                </View>
-                <View style={styles.catecontainer}>
-                    <Grid name="category" style={styles.category} />
-                </View>
-            </View>
-
             <View>
-                <Categorypage />
-                <Productcard />
+                <FlatList
+                    ListHeaderComponent={
+                        <>
+                            <Text style={styles.heading}> Find your best watch Now. </Text>
+                            <View style={styles.maininputwrap}>
+                                <View style={styles.inputwrap}>
+                                    <Search name='search1' style={styles.searchicon} />
+                                    <TextInput keyboardType='text' style={styles.textinput} placeholder='Search Products ...' placeholderTextColor={Colors.placeholder} />
+                                </View>
+                                <View style={styles.catecontainer}>
+                                    <Grid name="category" style={styles.category} />
+                                </View>
+                            </View>
+                            <Categorypage />
+                        </>
+                    }
+                    data={Smartwatches}
+                    renderItem={({ item }) => <Productcard item={item} />}
+                    numColumns={2}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                />
+
             </View>
         </View>
     )
@@ -36,7 +45,7 @@ export default Landinscreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: spacing.sm,
+        padding: spacing.md,
         backgroundColor: Colors.backgound,
     },
     heading: {

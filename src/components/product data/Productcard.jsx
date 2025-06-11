@@ -1,11 +1,19 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../constants/Colors'
 import { fontsize, spacing } from '../../constants/Dimensions'
 import { fontfamily } from '../../constants/Fonts'
+import { Smartwatches } from '../../data/Smartdata'
 
 const Productcard = () => {
-    const imgurl = "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713212/Croma%20Assets/Communication/Wearable%20Devices/Images/300965_0_bask7w.png";
+
+    const renderwatschesdata = () => {
+        return (
+            <TouchableOpacity>
+
+            </TouchableOpacity>
+        )
+    }
     return (
         <TouchableOpacity style={styles.container}>
             <View style={styles.imgwrapper}>
@@ -17,7 +25,10 @@ const Productcard = () => {
                 <Text style={styles.brand}> Apple  </Text>
                 <Text style={styles.price}> $104  </Text>
             </View>
+
         </TouchableOpacity>
+
+
     )
 }
 
@@ -62,3 +73,11 @@ const styles = StyleSheet.create({
         fontWeight: 600,
     }
 })
+
+
+// <FlatList
+//     data={Smartwatches}
+//     keyExtractor={(item) => item.id}
+//     renderItem={renderwatschesdata}
+//     horizontal
+// /> 
