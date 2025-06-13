@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { fontsize, iconsizes, spacing } from '../../constants/Dimensions'
 import { Colors } from '../../constants/Colors'
 import { fontfamily } from '../../constants/Fonts'
@@ -8,8 +8,31 @@ import Grid from 'react-native-vector-icons/MaterialIcons'
 import Categorypage from '../../constants/Categorypage'
 import Productcard from '../../components/product data/Productcard'
 import { Smartwatches } from '../../data/Smartdata'
+import { headphone } from '../../data/Headphones'
 
 const Landinscreen = () => {
+    const [data, setData] = useState(Smartwatches);
+    const [selectedcat, setSelectedcat] = useState("Smart watch");
+
+    const handleselectcategory = (category) => {
+        setSelectedcat(category);
+
+        if (category === "Smart watch") {
+            setData(Smartwatches);
+        }
+        else if (category === "Headphones") {
+            setData(headphone);
+        }
+        else {
+            // For any brand (Apple, Samsung, etc.)
+            const filteredProducts = Smartwatches.filter(
+                item => item.brand.toLowerCase() === category.toLowerCase()
+            );
+            setData(filteredProducts);
+        }
+    }
+
+
     return (
         <View style={styles.container}>
             <View>
@@ -26,11 +49,12 @@ const Landinscreen = () => {
                                     <Grid name="category" style={styles.category} />
                                 </View>
                             </View>
-                            <Categorypage />
+                            <Categorypage selectedcat={selectedcat} setSelectedcat={setSelectedcat} handleselectcategory={handleselectcategory} />
                         </>
                     }
-                    data={Smartwatches}
+                    data={data}
                     renderItem={({ item }) => <Productcard item={item} />}
+                    keyExtractor={(item) => item.id}
                     numColumns={2}
                     columnWrapperStyle={{ justifyContent: "space-between" }}
                 />

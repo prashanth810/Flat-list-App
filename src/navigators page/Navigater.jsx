@@ -3,6 +3,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Landinscreen from '../screens/landing csreen/Landinscreen';
 import { NavigationContainer } from '@react-navigation/native';
+import Productdetails from '../screens/single product/Productdetails';
 
 const Navigater = () => {
 
@@ -13,6 +14,7 @@ const Navigater = () => {
                 headerShown: false
             }}>
                 <Stack.Screen name='landing' component={Landinscreen} />
+                <Stack.Screen name='productdetails' component={Productdetails} />
             </Stack.Navigator>
         </NavigationContainer>
     )

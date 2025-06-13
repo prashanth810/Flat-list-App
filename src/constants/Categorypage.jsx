@@ -5,18 +5,17 @@ import { fontfamily } from './Fonts'
 import { Colors } from './Colors'
 import { Category } from '../data/Category'
 
-const Categorypage = () => {
-    const [selectedcat, setSelectedcat] = useState("Smart watch")
+const Categorypage = ({ selectedcat, setSelectedcat, handleselectcategory }) => {
 
     const handleselecetcat = (category) => {
-        setSelectedcat(category);
+        handleselectcategory(category);
     }
 
 
     const rendercategorynames = ({ item }) => {
         return (
             <View>
-                <TouchableOpacity onPress={() => handleselecetcat(item.name)}>
+                <TouchableOpacity onPress={() => handleselectcategory(item.name)}>
                     <Text style={[styles.categorytxt, selectedcat === item.name && { color: Colors.purple }]}> {item.name} </Text>
 
                     {selectedcat === item.name && <View style={styles.underline} />}

@@ -4,26 +4,26 @@ import { Colors } from '../../constants/Colors'
 import { fontsize, spacing } from '../../constants/Dimensions'
 import { fontfamily } from '../../constants/Fonts'
 import { Smartwatches } from '../../data/Smartdata'
+import { useNavigation } from '@react-navigation/native'
 
-const Productcard = () => {
+const Productcard = ({ item }) => {
+    const navigation = useNavigation();
 
-    const renderwatschesdata = () => {
-        return (
-            <TouchableOpacity>
-
-            </TouchableOpacity>
-        )
+    const handleproductdetails = () => {
+        navigation.navigate("productdetails", { product: item });
     }
+
+
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={handleproductdetails}>
             <View style={styles.imgwrapper}>
-                <Image source={{ uri: "https://media-ik.croma.com/prod/https://media.croma.com/image/upload/v1694713212/Croma%20Assets/Communication/Wearable%20Devices/Images/300965_0_bask7w.png" }} style={styles.img} />
+                <Image source={{ uri: item.image }} style={styles.img} />
             </View>
 
             <View style={styles.contentcontainer}>
-                <Text style={styles.name} numberOfLines={1}> Apple Watch Series 9  </Text>
-                <Text style={styles.brand}> Apple  </Text>
-                <Text style={styles.price}> $104  </Text>
+                <Text style={styles.name} numberOfLines={1}> {item.name}  </Text>
+                <Text style={styles.brand}> {item.brand}  </Text>
+                <Text style={styles.price}> ${item.price}  </Text>
             </View>
 
         </TouchableOpacity>
