@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { useRoute } from '@react-navigation/native'
 import Headercompo from './Headercompo';
 import Prodcarosel from './Prodcarosel';
@@ -7,63 +7,90 @@ import { fontsize, iconsizes, spacing } from '../../constants/Dimensions';
 import { Colors } from '../../constants/Colors';
 import Star from 'react-native-vector-icons/AntDesign';
 import { fontfamily } from '../../constants/Fonts';
+import Addcard from './Addcard';
+
+const colordata = [
+    { colorname: "silver", code: "#F0F2F2" },
+    { colorname: "Bright Orange", code: "#F25745" },
+    { colorname: "Starlight", code: "#FAF6F2" },
+];
+
 
 const Productdetails = () => {
+    const [selectedcolor, setSelectedcolor] = useState("");
+    const [selectedtab, setSelectedtab] = useState("Details")
     const route = useRoute();
     const { product } = route.params;
-    console.log(product, 'iiiiiiiiiiiiiiiii')
-
-    const colordata = [
-        { colorname: "silver", code: "#F0F2F2" },
-        { colorname: "Bright Orange", code: "#F25745" },
-        { colorname: "Starlight", code: "#FAF6F2" },
-    ];
 
 
     return (
         <View style={styles.container}>
-            <Headercompo />
-            {/* <Text> Title : {product.name}</Text> */}
-            <Prodcarosel images={product.images} />
+            <ScrollView style={styles.scrollcont}>
+                <Headercompo />
+                <Prodcarosel images={product.images} />
 
-            <View style={styles.titlecontainer}>
-                <View style={styles.title}>
-                    <Text style={styles.prodtitle}> {product.name} </Text>
-                    <Text style={styles.brand}> {product.brand} </Text>
-                </View>
+                <View style={styles.titlecontainer}>
+                    <View style={styles.title}>
+                        <Text style={styles.prodtitle}> {product.name} </Text>
+                        <Text style={styles.brand}> {product.brand} </Text>
+                    </View>
 
-                <View style={styles.rating}>
-                    <Star name="star" size={iconsizes.sm} color={Colors.yellow} />
-                    <Text style={styles.rats}>{product.rating || 4.6}</Text>
-                </View>
-
-            </View>
-
-            <View style={styles.colorcontainer}>
-                <Text style={styles.colorcont}> Colors </Text>
-
-                <View style={styles.selectcolor}>
-                    <FlatList data={colordata}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity style={[styles.selctedcolors, {
-                                borderColor: Colors.purple,
-                            }]}>
-                                <View style={styles.allcolors}>
-                                    <View style={[styles.cricle, {
-                                        backgroundColor: item.code
-                                    }]} />
-                                    <Text style={styles.textcolor}> {item.colorname} </Text>
-                                </View>
-                            </TouchableOpacity>
-                        )}
-                        horizontal
-                        ItemSeparatorComponent={() => {
-                            <View style={{ width: spacing.sm }} />
-                        }}
-                    />
+                    <View style={styles.rating}>
+                        <Star name="star" size={iconsizes.sm} color={Colors.yellow} />
+                        <Text style={styles.rats}>{product.rating || 4.6}</Text>
+                    </View>
 
                 </View>
-            </View>
+
+                <View style={styles.colorcontainer}>
+                    <Text style={styles.colorcont}> Colors </Text>
+
+                    <View style={styles.selectcolor}>
+                        <FlatList data={colordata}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity style={[styles.selctedcolors, item.colorname === selectedcolor && {
+                                    borderColor: Colors.purple,
+                                }]}
+                                    onPress={() => setSelectedcolor(item.colorname)}
+                                >
+                                    <View style={styles.allcolors}>
+                                        <View style={[styles.cricle, {
+                                            backgroundColor: item.code
+                                        }]} />
+                                        <Text style={styles.textcolor}> {item.colorname} </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                            horizontal
+                            ItemSeparatorComponent={() => {
+                                <View style={{ width: spacing.sm }} />
+                            }}
+                        />
+
+                    </View>
+                </View>
+
+
+                <View style={styles.detailsreview}>
+                    <TouchableOpacity onPress={() => setSelectedtab("Details")}>
+                        <Text style={[styles.detteaxt, selectedtab === "Details" && {
+                            color: Colors.purple,
+                        }]}> Details </Text>
+
+                        {selectedtab === "Details" && <View style={styles.underline} />}
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => setSelectedtab("Review")}>
+                        <Text style={[styles.detteaxt, selectedtab === "Review" && { color: Colors.purple }]}> Review </Text>
+                        {selectedtab === "Review" && <View style={styles.underline} />}
+                    </TouchableOpacity>
+                </View>
+
+                <Text style={styles.detailsdata}>{selectedtab === "Details" ? product.details : product.reviews}</Text>
+
+            </ScrollView>
+
+            <Addcard />
         </View>
     )
 }
@@ -72,8 +99,11 @@ export default Productdetails
 
 const styles = StyleSheet.create({
     container: {
-        padding: spacing.md,
+        flex: 1,
         backgroundColor: Colors.backgound,
+    },
+    scrollcont: {
+        padding: spacing.md,
     },
     titlecontainer: {
         flexDirection: "row",
@@ -145,5 +175,28 @@ const styles = StyleSheet.create({
     allcolors: {
         flexDirection: "row",
         alignItems: "center",
+    },
+    detailsreview: {
+        flexDirection: "row",
+        paddingTop: spacing.lg,
+        gap: spacing.lg,
+    },
+    detteaxt: {
+        fontSize: 16,
+        fontWeight: 700,
+        color: Colors.gray,
+    },
+    underline: {
+        width: "50%",
+        marginTop: spacing.xs,
+        borderBottomWidth: 2,
+        borderBottomColor: Colors.purple,
+    },
+    detailsdata: {
+        color: Colors.gray,
+        fontWeight: 400,
+        fontSize: fontsize.md,
+        paddingVertical: spacing.sm,
+        paddingBottom: 30,
     },
 })

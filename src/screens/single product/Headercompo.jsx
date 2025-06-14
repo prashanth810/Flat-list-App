@@ -2,12 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Back from 'react-native-vector-icons/Ionicons';
 import Heart from 'react-native-vector-icons/AntDesign'
+import { useNavigation } from '@react-navigation/native';
 
 const Headercompo = () => {
+    const navigation = useNavigation();
     return (
         <View>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Text> <Back name='arrow-back' size={20} /> </Text>
                 </TouchableOpacity>
 

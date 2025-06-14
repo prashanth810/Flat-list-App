@@ -45,7 +45,19 @@ export const Smartwatches = [
             "SPO2 Monitor | Heart Rate | Sleep Monitor | ECG Monitor",
             "Upto 18 Hours Battery Life",
             "Water Resistant | IP6X Dust Resistant | Swimproof",
-            "12 Months Warranty"
+            "SPO2 Monitor | Heart Rate | Sleep Monitor | ECG Monitor",
+            "Upto 18 Hours Battery Life",
+            "Water Resistant | IP6X Dust Resistant | Swimproof",
+            "SPO2 Monitor | Heart Rate | Sleep Monitor | ECG Monitor",
+            "Upto 18 Hours Battery Life",
+            "Water Resistant | IP6X Dust Resistant | Swimproof",
+            "SPO2 Monitor | Heart Rate | Sleep Monitor | ECG Monitor",
+            "Upto 18 Hours Battery Life",
+            "Water Resistant | IP6X Dust Resistant | Swimproof",
+            "SPO2 Monitor | Heart Rate | Sleep Monitor | ECG Monitor",
+            "Upto 18 Hours Battery Life",
+            "Water Resistant | IP6X Dust Resistant | Swimproof",
+            "12 Months Warranty 12345678910"
         ],
         reviews: "Apple Watch Series 9 GPS with Midnight Sport Band - M/L (45mm Display, Midnight Aluminium Case) Awesome "
     },
